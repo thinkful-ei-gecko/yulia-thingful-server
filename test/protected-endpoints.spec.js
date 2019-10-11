@@ -1,6 +1,8 @@
 const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
+const setTZ = require('set-tz') 
+setTZ('UTC')
 
 describe('Protected endpoints', () => {
   let db;
@@ -19,7 +21,9 @@ describe('Protected endpoints', () => {
     app.set('db', db)
   })
 
-  after('disconnect from db', () => db.destroy())
+  after('disconnect from db', () => {
+    db.destroy()
+  })
 
   before('cleanup', () => helpers.cleanTables(db))
 
